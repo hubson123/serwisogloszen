@@ -4,13 +4,13 @@
 	
 	if (isset($_POST['email']))
 	{
-		//Udana walidacja? Załóżmy, że tak!
+	
 		$wszystko_OK=true;
 		
-		//Sprawdź poprawność nickname'a
+
 		$login = $_POST['login'];
 		
-		//Sprawdzenie długości nicka
+
 		if ((strlen($login)<3) || (strlen($login)>20))
 		{
 			$wszystko_OK=false;
@@ -23,7 +23,6 @@
 			$_SESSION['e_login']="Nick może składać się tylko z liter i cyfr (bez polskich znaków)";
 		}
 		
-		// Sprawdź poprawność adresu email
 		$email = $_POST['email'];
 		$emailB = filter_var($email, FILTER_SANITIZE_EMAIL);
 		
@@ -71,7 +70,7 @@
 		
 		try 
 		{
-			$polaczenie = new mysqli($dbhost, $dblogin, $dbpass,$dbselect);
+			$polaczenie = new mysqli($dbhost, $dblogin, $dbhaslo,$dbselect);
 			
 			if ($polaczenie->connect_errno!=0)
 			{
@@ -106,7 +105,7 @@
 				if ($wszystko_OK==true)
 				{
 					
-					if ($polaczenie->query("INSERT INTO uzytkownicy VALUES ('$login', '$haslo', '$email')"))
+					if ($polaczenie->query("INSERT INTO uzytkownicy(login,haslo,email) VALUES ('$login', '$haslo1', '$email')"))
 					{
 						$_SESSION['udanarejestracja']=true;
 						header('Location: glowna.html');
