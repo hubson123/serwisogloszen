@@ -134,53 +134,106 @@
 ?>
 
 <!DOCTYPE HTML>
-<html lang="pl">
+<html lang="en">
 <head>
+    		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
+
+
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+
+		<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+         
     <title>Projekt zaliczeniowy</title>
- <link rel="stylesheet" href="css/bootstrap.css" />
-<link rel="stylesheet" href="css/bootstrap-theme.css" />
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-<script src="js/bootstrap.js"></script>
 <style>
-    #naglowek{
-border-top: red solid 3px;
-	background-image: url(gielda.png);
-	color: red;
-	border: 4px solid yellow;
-	text-align:center;
-        font-size: 60px;
-       font-style: italic;
-       font-family: Arial Black;
-       
-    }
-    body{
-        background:yellow;
-    }
-    #buttony{
-        text-align: right;
-        
-        
-    }
-    .error
-		{
-			color:red;
-			margin-top: 10px;
-			margin-bottom: 10px;
-		}
+body, html{
+     height: 100%;
+ 	background-repeat: no-repeat;
+ 	background-color: #d3d3d3;
+ 	font-family: 'Oxygen', sans-serif;
+}
+
+.main{
+ 	margin-top: 70px;
+}
+
+h1.title { 
+	font-size: 50px;
+	font-family: 'Passion One', cursive; 
+	font-weight: 400; 
+}
+
+hr{
+	width: 10%;
+	color: #fff;
+}
+
+.form-group{
+	margin-bottom: 15px;
+}
+
+label{
+	margin-bottom: 15px;
+}
+
+input,
+input::-webkit-input-placeholder {
+    font-size: 11px;
+    padding-top: 3px;
+}
+
+.main-login{
+ 	background-color: #fff;
+    /* shadows and rounded borders */
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+
+}
+
+.main-center{
+ 	margin-top: 30px;
+ 	margin: 0 auto;
+ 	max-width: 330px;
+    padding: 40px 40px;
+text-align: center;
+}
+
+.login-button{
+	margin-top: 5px;
+}
+
+.login-register{
+	font-size: 11px;
+	text-align: center;
+}
     </style>
 </head>
 
-<body><div id="naglowek">
-    <p>Serwis ogłoszeń</p></div>
-	
-	<form method="post">
-	
-		Login: <br /> <input type="text" value="<?php
+<body>
+    <div class="container">
+			<div class="row main">
+				<div class="panel-heading">
+	      
+	               		<center><h1 class="title">Serwis ogłoszeń</h1></center>
+	               		<hr />
+	   
+	            </div> 
+				<div class="main-login main-center">
+					<form class="form-horizontal" method="post" action="#">
+						
+						<div class="form-group">
+							<label for="login" class="cols-sm-2 control-label">Login</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+									<input type="text" value="<?php
 			if (isset($_SESSION['fr_login']))
 			{
 				echo $_SESSION['fr_login'];
@@ -195,8 +248,16 @@ border-top: red solid 3px;
 				unset($_SESSION['e_login']);
 			}
 		?>
-		
-		E-mail: <br /> <input type="text" value="<?php
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="email" class="cols-sm-2 control-label">Your Email</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+									<input type="text" value="<?php
 			if (isset($_SESSION['fr_email']))
 			{
 				echo $_SESSION['fr_email'];
@@ -211,8 +272,15 @@ border-top: red solid 3px;
 				unset($_SESSION['e_email']);
 			}
 		?>
-		
-		Twoje hasło: <br /> <input type="password"  value="<?php
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="haslo1" class="cols-sm-2 control-label">Hasło</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+									<input type="password"  value="<?php
 			if (isset($_SESSION['fr_haslo1']))
 			{
 				echo $_SESSION['fr_haslo1'];
@@ -226,17 +294,27 @@ border-top: red solid 3px;
 				echo '<div class="error">'.$_SESSION['e_haslo'].'</div>';
 				unset($_SESSION['e_haslo']);
 			}
-		?>		
-		
-		Powtórz hasło: <br /> <input type="password" value="<?php
+		?>	
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="haslo2" class="cols-sm-2 control-label">Powtórz hasło</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+									<input type="password" value="<?php
 			if (isset($_SESSION['fr_haslo2']))
 			{
 				echo $_SESSION['fr_haslo2'];
 				unset($_SESSION['fr_haslo2']);
 			}
 		?>" name="haslo2" /><br />
-		
-		<label>
+								</div>
+							</div>
+						</div>
+                                            <label>
 			<input type="checkbox" name="regulamin" <?php
 			if (isset($_SESSION['fr_regulamin']))
 			{
@@ -261,7 +339,16 @@ border-top: red solid 3px;
 				unset($_SESSION['e_bot']);
 			}
 		?>
-                <input type="submit" value="Zarejestruj"/>
-                </form>
+
+						<div class="form-group ">
+							<input type="submit" class="btn btn-primary btn-lg btn-block login-button" value="Zarejestruj"/>
+						</div>
+					
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="assets/js/bootstrap.js"></script>
 </body>
 </html>
