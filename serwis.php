@@ -34,8 +34,13 @@
 .navbar-nav li a:hover {
     color: #1abc9c !important;
 }
-body{
-  background: radial-gradient(circle, grey, white, grey);
+.nox{
+    height:800px;
+  background: radial-gradient(circle, grey, silver, grey);
+}
+.bg-4 { 
+    background-color: #2f2f2f;
+    color: #ffffff;
 }
     </style>
 </head>
@@ -61,6 +66,12 @@ body{
     </div>
   </div>
 </nav>
-    
+
+
+    <div class="nox"></div>
+<footer class="container-fluid bg-4 text-center">
+  <p>Projekt wykonali: Hubert Firek i Adrian Krawczyk</p> 
+</footer>
 </body>
+
 </html>
