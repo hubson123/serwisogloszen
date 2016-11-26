@@ -28,10 +28,14 @@
     margin-bottom: 0;
     font-size: 16px;
     letter-spacing: 2px;
+    font-family: Times New Roman;
+   
 }
-
 .navbar-nav li a:hover {
     color: #1abc9c !important;
+}
+body{
+  background: radial-gradient(circle, grey, white, grey);
 }
     </style>
 </head>
