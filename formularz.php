@@ -1,80 +1,175 @@
 <?php
 
-	session_start();
-	
-	if (!isset($_SESSION['zalogowany']))
+session_start();
+if ((!isset($_SESSION['zalogowany'])))
 	{
 		header('Location: glowna.html');
 		exit();
 	}
+
+
+function sprawdz_bledy()
+{
+  if ($_FILES['obrazek']['error'] > 0)
+  {
+    echo 'problem: ';
+    switch ($_FILES['obrazek']['error'])
+    {
+      // jest większy niż domyślny maksymalny rozmiar,
+      // podany w pliku konfiguracyjnym
+      case 1: {echo 'Rozmiar pliku jest zbyt duży.'; break;} 
+	  
+      // jest większy niż wartość pola formularza 
+      // MAX_FILE_SIZE
+      case 2: {echo 'Rozmiar pliku jest zbyt duży.'; break;}
+	  
+      // plik nie został wysłany w całości
+      case 3: {echo 'Plik wysłany tylko częściowo.'; break;}
+	  
+      // plik nie został wysłany
+      case 4: {echo 'Nie wysłano żadnego pliku.'; break;}
+	  
+      // pozostałe błędy
+      default: {echo 'Wystąpił błąd podczas wysyłania.';
+        break;}
+    }
+    return false;
+  }
+  return true;
+}
+
+
+
+function sprawdz_typ()
+{
+	if ($_FILES['obrazek']['type'] != 'image/jpeg')
+		return false;
+	return true;
+}
+
+function zapisz_plik()
+{
+
+
+  $len = 20;
+  $r = substr(sha1(rand(1,10000)),0,$len);
+  $_SESSION['r']=$r;
+  
+  $lokalizacja = "obrazy\'$r'.jpg";
 	
+  if(is_uploaded_file($_FILES['obrazek']['tmp_name']))
+  {
+    if(!move_uploaded_file($_FILES['obrazek']['tmp_name'], $lokalizacja))
+    {
+      echo 'problem: Nie udało się skopiować pliku do katalogu.';
+        return false;  
+    }
+  }
+  else
+  {
+    echo 'problem: Możliwy atak podczas przesyłania pliku.';
+	echo 'Plik nie został zapisany.';
+    return false;
+  }
+  return true;
+}
+
+
+if(isset($_POST['np']))
+{
+sprawdz_bledy();
+sprawdz_typ();
+zapisz_plik();
+
+
+$np = $_POST['np'];
+$opis = $_POST['opis'];
+$data_r = $_POST['data_w'];
+$cena = $_POST['cena'];
+$kontakt = $_POST['kontakt'];
+$wlasciciel = $_POST['wlasciciel'];
+$data_w = $_POST['data_w'];
+$kategoria = $_POST['kategoria'];
+$obraz = $_SESSION['r'];
+$uwlasciciel = $_SESSION['user'];
+
+		require_once "db.php";
+		mysqli_report(MYSQLI_REPORT_STRICT);
+		
+		$wszystko_OK=true;
+		
+		try 
+		{
+			$polaczenie = new mysqli($dbhost, $dblogin, $dbhaslo, $dbselect);
+			if ($polaczenie->connect_errno!=0)
+			{
+				throw new Exception(mysqli_connect_errno());
+			}
+			else
+			{
+				
+				$rezultat = $polaczenie->query("SELECT id FROM ogloszenia WHERE obraz='$obraz'");
+				
+				if (!$rezultat) throw new Exception($polaczenie->error);
+				
+				$ile_takich_obrazow = $rezultat->num_rows;
+				if($ile_takich_obrazow>0)
+				{
+					$wszystko_OK=false;
+					$_SESSION['e_obraz']="Nie udało się, spróbuj dodać przedmiot jeszcze raz!";
+				}		
+				
+				if ($wszystko_OK==true)
+				{
+					
+					
+					if ($polaczenie->query("INSERT INTO ogloszenia (nazwa,data_w,cena,opis,wlasciciel,obraz,kontakt,kategoria) VALUES ('$np', '$data_w', '$cena', '$opis', '$wlasciciel', '$obraz','$kontakt', '$kategoria' )"))
+					{
+						echo 'Udało się dodać ogłoszenie!';
+					}
+					else
+					{
+						throw new Exception($polaczenie->error);
+					}
+					
+				}
+				
+				$polaczenie->close();
+			}
+			
+		}
+		catch(Exception $e)
+		{
+			echo '<span style="color:red;">Błąd serwera! Przepraszamy za niedogodności i prosimy o skorzystanie z usługi w innym terminie!</span>';
+			echo '<br />Informacja developerska: '.$e;
+		}
+		
+	
+}
 ?>
-<!DOCTYPE HTML>
-<html lang="pl">
-<head>
-    <meta charset="utf8">
-	        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Projekt zaliczeniowy</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<style>
-.navbar {
-    padding-top: 15px;
-    padding-bottom: 15px;
-    border: 0;
-    border-radius: 0;
-    margin-bottom: 0;
-    font-size: 16px;
-    letter-spacing: 2px;
-    font-family: Times New Roman;
-   
-}
-.navbar-nav li a:hover {
-    color: #1abc9c !important;
-}
-.nox{
-    height:800px;
-  background: radial-gradient(circle, grey, silver, grey);
-}
-.bg-4 { 
-    background-color: #2f2f2f;
-    color: #ffffff;
-}
-    </style>
-</head>
 
-<body>
-  <nav class="navbar navbar-default">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span> 
-      </button>
-      <a class="navbar-brand" href="#"><?php  echo "<p>Witaj ".$_SESSION['login'].'!</p>';	 ?></a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav navbar-right">
-          <li><a href="formularz.php">Dodaj ogłoszenie</a></li>
-        <li><a href="#">Moje ogłoszenia</a></li>
-        <li><a href="#">Archiwum</a></li>
-        <li><a href="logout.php">Wyloguj się!</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
+<html>
+<br>
+<div class="bg-info"><div class="container"><div class="container"><div class="container">
 
+<form action="" method="post" name="ogloszenia" enctype="multipart/form-data" class="form-group">
 
-    <div class="nox">
-        
-    </div>
-<footer class="container-fluid bg-4 text-center">
-  <p>Projekt wykonali: Hubert Firek i Adrian Krawczyk</p> 
-</footer>
-</body>
+NAZWA PRZEDMIOTU : <input type="text" name="np" required  class="form-control" /><br>
+WŁAŚCICIEL (wystawiający) : <input type="text" name="sprzedajacy" required  class="form-control"/><br>
+KONTAKT (telefon lub e-mail) : <input type="text" name="kontakt" required  class="form-control"/><br>
+KRÓTKI OPIS (max 500 znaków) :<input type="text" name="opis"  class="form-control"/> <br>
+KATEGORIA :<select name="kategoria"  class="form-control"><option>meble</option><option>motoryzacja</option><option>sport</option><option>inne</option></select> <br>
+DATA: <input type="datetime-local" name="data_w"required  class="form-control"/><br>
+CENA : <input type="number" name="cena" min="0"  class="form-control"/><br>
+<br>
+PROSZĘ WSTAWIĆ ZDJĘCIE PRZEDMIOTU :
+<input type="hidden" name="MAX_FILE_SIZE" value="512000" class="form-control"/>
+<input type="file" name="obrazek" required  class="form-control"/><br>
+<input type="submit" value="WYŚLIJ" class="btn btn-info" class="pull-right"/>
+</form>
+
+<form action="serwis.php" method="post"><input type="submit" value="WRÓĆ DO MOJEJ STRONY"  class="btn btn-info" ></form>
+</div></div></div></div>
 
 </html>
 

@@ -58,7 +58,7 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Dodaj ogłoszenie</a></li>
+        <li><a href="formularz.php">Dodaj ogłoszenie</a></li>
         <li><a href="#">Moje ogłoszenia</a></li>
         <li><a href="#">Archiwum</a></li>
         <li><a href="logout.php">Wyloguj się!</a></li>
