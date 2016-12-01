@@ -31,6 +31,10 @@
     background-color: #2f2f2f;
     color: #ffffff;
 }
+img {
+width: 200px;
+height: 100px;
+}
     </style>
 </head>
 
