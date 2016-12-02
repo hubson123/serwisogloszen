@@ -1,3 +1,11 @@
+			<?php 
+			session_start();
+	
+	if (!isset($_SESSION['zalogowany']))
+	{
+		header('Location: glowna.html');
+		exit();
+	} ?>
 <!DOCTYPE HTML>
 <html lang="pl">
 <head>
@@ -35,6 +43,9 @@ img {
 width: 200px;
 height: 100px;
 }
+table {
+	align: center;
+}
     </style>
 </head>
 
@@ -47,7 +58,7 @@ height: 100px;
         <span class="icon-bar"></span>
         <span class="icon-bar"></span> 
       </button>
-      WITAJ!
+      <a class="navbar-brand" href="#"><?php  echo "<p>Witaj ".$_SESSION['login'].'!</p>';	 ?></a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
@@ -62,14 +73,15 @@ height: 100px;
 
 
     <div class="nox">
-        <?php 
+        <?php 	
 include 'db.php';
 $query = mysqli_query($con,"SELECT * FROM ogloszenie") 
 or die('Błąd zapytania'); 
 
-    echo "<table cellpadding=\"10\" border=7 >"; 
+    echo "<table align= center cellpadding=\"10\" border=7 >"; 
        while($row = mysqli_fetch_array($query)) { 
         echo "<tr>"; 
+		echo "<td>".$row['idO']."</td>"; 
         echo "<td>".$row['tytul']."</td>"; 
         echo "<td>".$row['kategoria']."</td>";
         echo "<td>".$row['cena']."</td>"; 

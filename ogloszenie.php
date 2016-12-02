@@ -1,3 +1,11 @@
+			<?php 
+			session_start();
+	
+	if (!isset($_SESSION['zalogowany']))
+	{
+		header('Location: glowna.html');
+		exit();
+	} ?>
 <!DOCTYPE HTML>
 <html lang="pl">
 <head>
@@ -84,7 +92,7 @@ text-align: center;
 	margin-top: 5px;
 }
 
-.login-register{
+.login-zaloguj{
 	font-size: 11px;
 	text-align: center;
 }
@@ -100,14 +108,14 @@ text-align: center;
         <span class="icon-bar"></span>
         <span class="icon-bar"></span> 
       </button>
-  
+  <a class="navbar-brand" href="#"><?php  echo "<p>Witaj ".$_SESSION['login'].'!</p>';	 ?></a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-          <li><a href="dodaj_kategorie.php">Dodaj ogĹ‚oszenie</a></li>
-        <li><a href="ogloszenie.php">Moje ogĹ‚oszenia</a></li>
+          <li><a href="ogloszenie.php">Dodaj ogłoszenie</a></li>
+        <li><a href="moje_ogloszenia.php">Moje ogłoszenia</a></li>
         <li><a href="#">Archiwum</a></li>
-        <li><a href="logout.php">Wyloguj siÄ™!</a></li>
+        <li><a href="logout.php">Wyloguj się!</a></li>
       </ul>
     </div>
   </div>
@@ -115,16 +123,78 @@ text-align: center;
 
 
     <div class="nox">
-        
-	<form action='' method='POST' enctype='multipart/form-data'>
-  Tytul: <input name="tytul" type="text">
-  Kategoria: <input type="text" name="kategoria">
-  Cena: <input type="number" name="cena">
-  Data dodania: <input type="date" name="data_dodania">
-  Opis: <input type="text" name="tresc">
-  Obraz: <input type="file" accept="image/*" name="fad_photo">
-  <input name="dodaj" value="dodaj" type="submit">
+	<div class="row main">
+	</br>
+     <div class="main-login main-center">
+	<form class="form-horizontal" action='' method='POST' enctype='multipart/form-data'>
+	<div class="panel-heading">
+	<center><h1 class="title">Dodaj ogłoszenie</h1></center>
+	</div>
+	<hr />
+	<div class="form-group">
+	<label for="tytul" class="cols-sm-2 control-label">Nazwa:</label>
+	<div class="cols-sm-10">
+	<div class="input-group">
+	<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+  <input class="form-control" name="tytul" type="text">
+  </div>
+  </div>
+  </div>
+  <div class="form-group">
+  <label for="kategoria" class="cols-sm-2 control-label">Kategoria:</label>
+  <div class="cols-sm-10">
+  <div class="input-group">
+  <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+  <select class="form-control" name="kategoria" size="w">
+	<option>Motoryzacja</option>
+	<option>Dom</option>
+	<option>Ubrania</option>
+	<option>Gry</option>
+</select>
+  </div>
+  </div>
+  </div>
+  <div class="form-group">
+  <label for="cena" class="cols-sm-2 control-label">Cena:</label>
+  <div class="cols-sm-10">
+<div class="input-group"> 
+<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+ <input class="form-control" type="number" name="cena" min="1">
+ </div>
+ </div>
+ </div>
+ <div class="form-group">
+  <label for="data_dodania" class="cols-sm-2 control-label">Data:</label>
+  <div class="cols-sm-10">
+  <div class="input-group">
+  <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+  <input class="form-control" type="text" name="data_dodania" value="<?= date('d-m-Y') ?>">
+  </div>
+  </div>
+  </div>
+  <div class="form-group">
+  <label for="tresc" class="cols-sm-2 control-label">Opis:</label>
+  <div class="cols-sm-10">
+  <div class="input-group">
+  <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+  <input class="form-control" type="text" name="tresc">
+  </div>
+  </div>
+  </div>
+  <div class="form-group">
+  <label for="obraz" class="cols-sm-2 control-label">Obraz:</label>
+  <div class="cols-sm-10">
+  <div class="input-group">
+  <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+  <input class="form-control" type="file" accept="image/*" name="obraz">
+  </div>
+  </div>
+  </div>
+  <input class="btn btn-primary btn-lg btn-block login-button" name="dodaj" value="dodaj" type="submit">
 </form>
+</div>
+
+  
 <?php
 If (isset($_POST['dodaj'])){
         require ('db.php');
@@ -134,13 +204,14 @@ $cena = $_POST['cena'];
 $data_dodania = $_POST['data_dodania'];
 $tresc = $_POST['tresc'];
 $path = 'zdjecia/moje/';
-$ad_photo = $path.basename($_FILES['fad_photo']['name']);
-if(move_uploaded_file($_FILES['fad_photo']['tmp_name'], $ad_photo)){
-	$con = mysqli_connect('localhost','root','','serwis') or die ('Nie moĹĽna nawiÄ…zaÄ‡ poĹ‚Ä…czenia');
+$ad_photo = $path.basename($_FILES['obraz']['name']);
+if(move_uploaded_file($_FILES['obraz']['tmp_name'], $ad_photo)){
+	$con = mysqli_connect('localhost','root','','serwis') or die ('Nie można nawiązaać połączenia');
     $wynik = mysqli_query($con,"INSERT INTO ogloszenie (tytul, kategoria, cena, obraz, data_dodania, tresc) VALUES('$tytul','$kategoria','$cena','$ad_photo','$data_dodania','$tresc')");
 }
 }
 ?>
+</div>
     </div>
 <footer class="container-fluid bg-4 text-center">
   <p>Projekt wykonali: Hubert Firek i Adrian Krawczyk</p> 
