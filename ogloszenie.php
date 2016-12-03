@@ -1,11 +1,14 @@
-			<?php 
-			session_start();
+<?php
+
+	session_start();
 	
 	if (!isset($_SESSION['zalogowany']))
 	{
 		header('Location: glowna.html');
 		exit();
-	} ?>
+	}
+	
+?>
 <!DOCTYPE HTML>
 <html lang="pl">
 <head>
@@ -123,95 +126,90 @@ text-align: center;
 
 
     <div class="nox">
-	<div class="row main">
-	</br>
-     <div class="main-login main-center">
+ 
+        <div class="panel-heading">
+	               
+	               		<center><h1 class="title">Dodaj ogłoszenie</h1></center>
+	               		<hr />
+	               
+	            </div> <div class="main-login main-center">
 	<form class="form-horizontal" action='' method='POST' enctype='multipart/form-data'>
-	<div class="panel-heading">
-	<center><h1 class="title">Dodaj ogłoszenie</h1></center>
-	</div>
-	<hr />
-	<div class="form-group">
-	<label for="tytul" class="cols-sm-2 control-label">Nazwa:</label>
-	<div class="cols-sm-10">
-	<div class="input-group">
-	<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+            <div class="form-group">
+							<label for="sprzedajacy" class="cols-sm-2 control-label">Sprzedający:</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+                                                                    <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+  <input class="form-control" name="sprzedajacy" type="text" value="<?php  echo "{$_SESSION['login']}";	 ?>">
+  </div></div></div>
+            <div class="form-group">
+							<label for="tytul" class="cols-sm-2 control-label">Nazwa:</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+                                                                    <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
   <input class="form-control" name="tytul" type="text">
-  </div>
-  </div>
-  </div>
+  </div></div></div>
   <div class="form-group">
-  <label for="kategoria" class="cols-sm-2 control-label">Kategoria:</label>
-  <div class="cols-sm-10">
-  <div class="input-group">
-  <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+							<label for="kategoria" class="cols-sm-2 control-label">Kategoria</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+                                                                    <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
   <select class="form-control" name="kategoria" size="w">
 	<option>Motoryzacja</option>
 	<option>Dom</option>
 	<option>Ubrania</option>
+        <option>Artyleria</option>
 	<option>Gry</option>
 </select>
-  </div>
-  </div>
-  </div>
+  </div></div></div>
   <div class="form-group">
-  <label for="cena" class="cols-sm-2 control-label">Cena:</label>
-  <div class="cols-sm-10">
-<div class="input-group"> 
-<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
- <input class="form-control" type="number" name="cena" min="1">
- </div>
- </div>
- </div>
- <div class="form-group">
-  <label for="data_dodania" class="cols-sm-2 control-label">Data:</label>
-  <div class="cols-sm-10">
-  <div class="input-group">
-  <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-  <input class="form-control" type="text" name="data_dodania" value="<?= date('d-m-Y') ?>">
-  </div>
-  </div>
-  </div>
+							<label for="cena" class="cols-sm-2 control-label">Cena</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+                                                                    <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+  <input class="form-control" type="number" name="cena" min="1" value="&zł">
+  </div></div></div>
   <div class="form-group">
-  <label for="tresc" class="cols-sm-2 control-label">Opis:</label>
-  <div class="cols-sm-10">
-  <div class="input-group">
-  <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-  <input class="form-control" type="text" name="tresc">
-  </div>
-  </div>
-  </div>
+							<label for="data_dodania" class="cols-sm-2 control-label">Data:</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+                                                                    <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+  <input class="form-control" type="text" name="data_dodania" value="<?= date('d-m-Y') ?>" >
+  </div></div></div>
   <div class="form-group">
-  <label for="obraz" class="cols-sm-2 control-label">Obraz:</label>
-  <div class="cols-sm-10">
-  <div class="input-group">
-  <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-  <input class="form-control" type="file" accept="image/*" name="obraz">
-  </div>
-  </div>
-  </div>
+							<label for="tresc" class="cols-sm-2 control-label">Opis:</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+                                                                    <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+  <textarea class="form-control" type="text" name="tresc"></textarea>
+  </div></div></div>
+  <div class="form-group">
+      
+							<label for="fad_photo" class="cols-sm-2 control-label">Obraz:</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+                                                                    <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+  <input class="form-control" type="file" accept="image/*" name="fad_photo">
+  </div></div></div>
   <input class="btn btn-primary btn-lg btn-block login-button" name="dodaj" value="dodaj" type="submit">
 </form>
-</div>
-
-  
+                        </div>
 <?php
 If (isset($_POST['dodaj'])){
         require ('db.php');
+$sprzedajacy = $_POST['sprzedajacy'];
 $tytul = $_POST['tytul'];
 $kategoria = $_POST['kategoria'];
 $cena = $_POST['cena'];
 $data_dodania = $_POST['data_dodania'];
 $tresc = $_POST['tresc'];
 $path = 'zdjecia/moje/';
-$ad_photo = $path.basename($_FILES['obraz']['name']);
-if(move_uploaded_file($_FILES['obraz']['tmp_name'], $ad_photo)){
-	$con = mysqli_connect('localhost','root','','serwis') or die ('Nie można nawiązaać połączenia');
-    $wynik = mysqli_query($con,"INSERT INTO ogloszenie (tytul, kategoria, cena, obraz, data_dodania, tresc) VALUES('$tytul','$kategoria','$cena','$ad_photo','$data_dodania','$tresc')");
+$ad_photo = $path.basename($_FILES['fad_photo']['name']);
+if(move_uploaded_file($_FILES['fad_photo']['tmp_name'], $ad_photo)){
+	$con = mysqli_connect('localhost','root','','serwis') or die ('Nie');
+    $wynik = mysqli_query($con,"INSERT INTO ogloszenie (sprzedajacy, tytul, kategoria, cena, obraz, data_dodania, tresc) VALUES('$sprzedajacy','$tytul','$kategoria','$cena','$ad_photo','$data_dodania','$tresc')");
 }
 }
 ?>
-</div>
     </div>
 <footer class="container-fluid bg-4 text-center">
   <p>Projekt wykonali: Hubert Firek i Adrian Krawczyk</p> 
