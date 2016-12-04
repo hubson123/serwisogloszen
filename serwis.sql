@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 27 Lis 2016, 18:05
+-- Generation Time: 04 Gru 2016, 20:08
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -23,30 +23,30 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `kategorie`
---
-
-CREATE TABLE IF NOT EXISTS `kategorie` (
-  `idK` int(11) NOT NULL,
-  `nazwa` varchar(35) NOT NULL,
-  PRIMARY KEY (`idK`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Struktura tabeli dla tabeli `ogloszenie`
 --
 
 CREATE TABLE IF NOT EXISTS `ogloszenie` (
-  `idO` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sprzedajacy` text NOT NULL,
   `tytul` varchar(100) NOT NULL,
+  `kategoria` text NOT NULL,
+  `cena` varchar(30) NOT NULL,
+  `obraz` text NOT NULL,
+  `data_dodania` text NOT NULL,
   `tresc` text NOT NULL,
-  `data_dodania` date NOT NULL,
-  `idK` int(11) DEFAULT NULL,
-  PRIMARY KEY (`idO`),
-  KEY `idK_idO` (`idK`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
+
+--
+-- Zrzut danych tabeli `ogloszenie`
+--
+
+INSERT INTO `ogloszenie` (`id`, `sprzedajacy`, `tytul`, `kategoria`, `cena`, `obraz`, `data_dodania`, `tresc`) VALUES
+(18, 'marian', 'czoÅ‚g', 'Artyleria', '2500000', 'zdjecia/moje/d00d9eea28f9a60d7d1a47930ec82346,640,0,0,0.jpg', '03-12-2016', 'CzoÅ‚g w ktÃ³rym, chory na ebole zgwaÅ‚ciÅ‚ ksiÄ™dza.'),
+(16, 'krzychu', 'polo', 'Ubrania', '35', 'zdjecia/moje/7550-koszulki-polo-zapin_2074.jpg', '03-12-2016', 'Koszulka polo o kolorze czarnym.'),
+(14, 'stach', 'Harley davidson', 'Motoryzacja', '965000', 'zdjecia/moje/45bb53e81a247acda9eac77f6b885952.jpg', '03-12-2016', 'To jest taki motor, a nie motor.'),
+(15, 'krzychu', 'ChiÅ„czyk', 'Gry', '21', 'zdjecia/moje/images (1).jpg', '03-12-2016', 'Gra przeznaczona zarÃ³wno dla dzieci jak i dorosÅ‚ych.');
 
 -- --------------------------------------------------------
 
