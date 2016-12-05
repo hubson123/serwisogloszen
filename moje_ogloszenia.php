@@ -7,6 +7,11 @@
 		header('Location: glowna.html');
 		exit();
 	}
+        $con = mysqli_connect('localhost','root','','serwis') or die ('Nie można nawiązać połączenia');
+$archive = mysqli_query($con,"INSERT INTO archiwum SELECT * FROM ogloszenie WHERE `data_dodania` < DATE_SUB(NOW(), INTERVAL 30 DAY)");
+$x = mysqli_query($con,"SET foreign_key_checks = 0");
+$deletepost = mysqli_query($con,"DELETE FROM ogloszenie WHERE `data_dodania` < DATE_SUB(NOW(), INTERVAL 30 DAY)");
+$d =  mysqli_query($con, "foreign_key_checks = 1");
 	
 ?>
 <!DOCTYPE HTML>
@@ -75,7 +80,7 @@ hr{
       <ul class="nav navbar-nav navbar-right">
           <li><a href="ogloszenie.php">Dodaj ogłoszenie</a></li>
           <li><a href="moje_ogloszenia.php">Moje ogłoszenia</a></li>
-        <li><a href="#">Archiwum</a></li>
+          <li><a href="archiwum.php">Archiwum</a></li>
         <li><a href="logout.php">Wyloguj się!</a></li>
       </ul>
     </div>
@@ -106,6 +111,7 @@ or die('Błąd zapytania');
         echo "</tr>";
        }
     echo "</table>"; 
+    echo "<a href=komentarze.php>Zobacz komentarze</a>";
     echo "</br>";
 
 ?>
@@ -117,3 +123,6 @@ or die('Błąd zapytania');
 </body>
 
 </html>
+<?php
+
+?>

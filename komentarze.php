@@ -1,4 +1,4 @@
-<?php
+  <?php
 
 	session_start();
 	
@@ -34,18 +34,33 @@
 .navbar-nav li a:hover {
     color: #1abc9c !important;
 }
-.nox{
-    height:800px;
+.nox{ 
+    text-align: center; 
+  
   background: radial-gradient(circle, grey, silver, grey);
 }
 .bg-4 { 
     background-color: #2f2f2f;
     color: #ffffff;
 }
+img {
+width: 200px;
+height: 100px;
+}
+h1.title { 
+    color: white;
+	font-size: 50px;
+	font-family: 'Passion One', cursive; 
+	font-weight: 400; 
+}
+hr{
+	width: 15%;
+
+}
     </style>
 </head>
 
-<body>
+<body >
   <nav class="navbar navbar-default">
   <div class="container">
     <div class="navbar-header">
@@ -54,13 +69,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span> 
       </button>
-      <a class="navbar-brand" href="#"><?php  echo "<p>Witaj ".$_SESSION['login'].'!</p>';	 ?></a>
+     <a class="navbar-brand" href="#"><?php  echo "<p>Witaj ".$_SESSION['login'].'!</p>';	 ?></a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
           <li><a href="ogloszenie.php">Dodaj ogłoszenie</a></li>
           <li><a href="moje_ogloszenia.php">Moje ogłoszenia</a></li>
-          <li><a href="archiwum.php">Archiwum</a></li>
+        <li><a href="#">Archiwum</a></li>
         <li><a href="logout.php">Wyloguj się!</a></li>
       </ul>
     </div>
@@ -68,7 +83,9 @@
 </nav>
 
 
-    <div class="nox"></div>
+    <div class="nox">
+        s
+           </div>
 <footer class="container-fluid bg-4 text-center">
   <p>Projekt wykonali: Hubert Firek i Adrian Krawczyk</p> 
 </footer>

@@ -117,7 +117,7 @@ text-align: center;
       <ul class="nav navbar-nav navbar-right">
           <li><a href="ogloszenie.php">Dodaj ogłoszenie</a></li>
         <li><a href="moje_ogloszenia.php">Moje ogłoszenia</a></li>
-        <li><a href="#">Archiwum</a></li>
+        <li><a href="archiwum.php">Archiwum</a></li>
         <li><a href="logout.php">Wyloguj się!</a></li>
       </ul>
     </div>
@@ -168,13 +168,7 @@ text-align: center;
                                                                     <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
   <input class="form-control" type="number" name="cena" min="1" value="&zł">
   </div></div></div>
-  <div class="form-group">
-							<label for="data_dodania" class="cols-sm-2 control-label">Data:</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-                                                                    <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-  <input class="form-control" type="text" name="data_dodania" value="<?= date('d-m-Y') ?>" >
-  </div></div></div>
+
   <div class="form-group">
 							<label for="tresc" class="cols-sm-2 control-label">Opis:</label>
 							<div class="cols-sm-10">
@@ -194,21 +188,23 @@ text-align: center;
 </form>
                         </div>
 <?php
+
 If (isset($_POST['dodaj'])){
         require ('db.php');
 $sprzedajacy = $_POST['sprzedajacy'];
 $tytul = $_POST['tytul'];
 $kategoria = $_POST['kategoria'];
 $cena = $_POST['cena'];
-$data_dodania = $_POST['data_dodania'];
 $tresc = $_POST['tresc'];
 $path = 'zdjecia/moje/';
 $ad_photo = $path.basename($_FILES['fad_photo']['name']);
+$data_dodania = date("Y-m-d H:i:s");
 if(move_uploaded_file($_FILES['fad_photo']['tmp_name'], $ad_photo)){
 	$con = mysqli_connect('localhost','root','','serwis') or die ('Nie');
     $wynik = mysqli_query($con,"INSERT INTO ogloszenie (sprzedajacy, tytul, kategoria, cena, obraz, data_dodania, tresc) VALUES('$sprzedajacy','$tytul','$kategoria','$cena','$ad_photo','$data_dodania','$tresc')");
 }
 }
+
 ?>
     </div>
 <footer class="container-fluid bg-4 text-center">
