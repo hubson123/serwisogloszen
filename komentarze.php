@@ -7,7 +7,8 @@
 		header('Location: glowna.html');
 		exit();
 	}
-	
+	       
+
 ?>
 <!DOCTYPE HTML>
 <html lang="pl">
@@ -47,16 +48,7 @@ img {
 width: 200px;
 height: 100px;
 }
-h1.title { 
-    color: white;
-	font-size: 50px;
-	font-family: 'Passion One', cursive; 
-	font-weight: 400; 
-}
-hr{
-	width: 15%;
 
-}
     </style>
 </head>
 
@@ -75,7 +67,7 @@ hr{
       <ul class="nav navbar-nav navbar-right">
           <li><a href="ogloszenie.php">Dodaj ogłoszenie</a></li>
           <li><a href="moje_ogloszenia.php">Moje ogłoszenia</a></li>
-        <li><a href="#">Archiwum</a></li>
+        <li><a href="archiwum.php">Archiwum</a></li>
         <li><a href="logout.php">Wyloguj się!</a></li>
       </ul>
     </div>
@@ -84,8 +76,22 @@ hr{
 
 
     <div class="nox">
-        s
-           </div>
+ <form method="post" action="kontakt.php">
+        
+    <label>Imię i nazwisko</label>
+    <input name="name" placeholder="Jan Kowalski">
+            <br />
+    <label>Email</label>
+    <input name="email" type="email" placeholder="huhuhu@79huhu.pl">
+            <br />
+    <label>Wiadomość</label>
+    <textarea name="message" placeholder="Napisz tu wiadomość"></textarea>
+            <br />
+    <input id="submit" name="submit" type="submit" value="Wyślij">
+        
+</form></div><?php 
+3?>
+       </div>
 <footer class="container-fluid bg-4 text-center">
   <p>Projekt wykonali: Hubert Firek i Adrian Krawczyk</p> 
 </footer>

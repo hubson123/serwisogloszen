@@ -97,7 +97,7 @@ include 'db.php';
 $query = mysqli_query($con,"SELECT * FROM ogloszenie") 
 or die('Błąd zapytania'); 
 
-    echo "<table align=center cellpadding=\"5\" border=7 ><tr><th>Sprzedający</th><th>Nazwa</th><th>Kategoria</th><th>Cena</th><th>Data</th><th>Opis</th><th>Zdjęcie</th></tr>"; ; 
+    echo "<table align=center cellpadding=\"5\" border=7 ><tr><th>Sprzedający</th><th>Nazwa</th><th>Kategoria</th><th>Cena</th><th>Data</th><th>Opis</th><th>Zdjęcie</th><th>Wiadomość</th></tr>"; ; 
        while($row = mysqli_fetch_array($query)) { 
         echo "<tr>"; 
         echo "<td>{$row['sprzedajacy']}</td>";
@@ -108,10 +108,11 @@ or die('Błąd zapytania');
         echo "<td>{$row['data_dodania']}</td>";
         echo "<td>{$row['tresc']}</td>";
        echo "<td> <img src='{$row['obraz']}'/> </td>";
+       echo "<td><a href=komentarze.php>Wyślij wiadomość do sprzedającego.</a> </td>";
         echo "</tr>";
        }
+
     echo "</table>"; 
-    echo "<a href=komentarze.php>Zobacz komentarze</a>";
     echo "</br>";
 
 ?>
